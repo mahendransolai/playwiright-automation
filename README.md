@@ -1,1 +1,1 @@
-# playwirght-automation
+# playwright-automation
