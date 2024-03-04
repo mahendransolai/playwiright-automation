@@ -1,24 +1,39 @@
 import { defineConfig, devices } from '@playwright/test';
+import dotenv from "dotenv"
+import {config} from "dotenv"
+
+if(process.env.ENVIRONMENT){
+   //console.log('Test ENVIRONMENT : ', process.env.ENVIRONMENT);
+   config({
+    //path:`./src/config/.env.qa`,
+       path: `./src/config/.env.${process.env.ENVIRONMENT}`,
+       override: true,
+});
+
+} 
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config();
+//require('dotenv').config();
 
-if(!process.env.NODE_ENV)
-{
-  require('dotenv').config({path:`${__dirname}//src/config//.env`});
-}
-else
-{
-  require('dotenv').config({path:`${__dirname}//src/config//.env.${process.env.NODE_ENV}`});
-}
+// if(!process.env.NODE_ENV)
+// {
+//   const result = require('dotenv').config({path:`${__dirname}//src/env//.env`});
+//   //console.log(result.parsed);
+// }
+// else
+// {
+//   const result = require('dotenv').config({path:`${__dirname}//src/env//.env.${process.env.NODE_ENV}`});
+//   //console.log(result.parsed);
+// }
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  //globalSetup: "./src/utils/globalSetUp.ts", 
   testDir: './src/tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -29,7 +44,8 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  //reporter: 'dot',
+  reporter: [['html', { outputFolder: './src/output' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -38,7 +54,7 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
-
+  
   /* Configure projects for major browsers */
   projects: [
     {
@@ -83,4 +99,5 @@ export default defineConfig({
   //   url: 'http://127.0.0.1:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
+  
 });
