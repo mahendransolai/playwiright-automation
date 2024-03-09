@@ -2,15 +2,30 @@ import { defineConfig, devices } from '@playwright/test';
 import dotenv from "dotenv"
 import {config} from "dotenv"
 
-if(process.env.ENVIRONMENT){
-   //console.log('Test ENVIRONMENT : ', process.env.ENVIRONMENT);
-   config({
-    //path:`./src/config/.env.qa`,
-       path: `./src/config/.env.${process.env.ENVIRONMENT}`,
-       override: true,
-});
+// if(process.env.ENVIRONMENT){
+//    //console.log('Test ENVIRONMENT : ', process.env.ENVIRONMENT);
+//    config({
+//     //path:`./src/config/.env.qa`,
+//        path: `./src/config/.env.${process.env.ENVIRONMENT}`,
+//        override: true,
+// });
+// } 
+if (!process.env.ENVIRONMENT) {
+  // Load environment variables from a default .env file
+  config({
+      path: `./src/config/.env`,
+      override: true,
+  });
+} else {
+  // Load environment variables from a specific .env file based on the value of ENVIRONMENT
+  config({
+      path: `./src/config/.env.${process.env.ENVIRONMENT}`,
+      override: true,
+  });
+}
 
-} 
+
+
 
 /**
  * Read environment variables from file.

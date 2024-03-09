@@ -1,4 +1,6 @@
 import{test} from '@playwright/test';
+import dotenv from "dotenv";
+import ENV from '../utils/env';
 
 
 test("test1",async({ page }) => { 
@@ -7,9 +9,11 @@ test("test1",async({ page }) => {
 
  });
 
- test.only("sample env test",async({ page }) => { 
-    console.log(process.env.NODE_ENV);
-    console.log(process.env.userid);
-    console.log(process.env.password);
+ test("sample env test",async({ page }) => { 
+    //dotenv.config()
+    console.log(ENV.BASE_URL);
+    // console.log(process.env.userid);
+    // console.log(process.env.password);
+    // //console.log(process.env.qa);
  
   });

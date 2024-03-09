@@ -10,7 +10,7 @@ import globalSetup from "../utils/globalSetUp"
 //     override: true
 // })
 
-test("Level 1 - Basic test  - Call the BASE_URL from dotenv ",async({ page }) => { 
+test.skip("Level 1 - Basic test  - Call the BASE_URL from dotenv ",async({ page }) => { 
     console.log(process.env.BASE_URL);
     console.log(process.env.userid);
     console.log(process.env.password);
@@ -25,6 +25,7 @@ test("Level 1 - Basic test  - Call the BASE_URL from dotenv ",async({ page }) =>
    //  console.log(process.env.BASE_URL);
    //  console.log(process.env.userid);
    //  console.log(process.env.password);
-    //await page.goto(ENV.BASE_URL as string);
+    await page.goto(ENV.BASE_URL as string);
+    await page.pause();
 
  });
